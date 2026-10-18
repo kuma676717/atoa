@@ -1,0 +1,128 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  atoa-poc — Migration Fortune API (manual port), AWS Lambda .NET 8 + S3
+
+Globals:
+  Function:
+    Runtime: dotnet8
+    Architectures:
+      - arm64
+    Environment:
+      Variables:
+        S3_BUCKET_NAME: !Sub 'atoa-poc-manual-${AWS::AccountId}'
+
+Resources:
+
+  # ------------------------------------------------------------------ S3 bucket
+  AssessmentBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'atoa-poc-manual-${AWS::AccountId}'
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Suspended
+      Tags:
+        - Key: project
+          Value: atoa-poc
+        - Key: variant
+          Value: manual
+        - Key: env
+          Value: dev
+        - Key: app
+          Value: migration-fortune
+
+  # ------------------------------------------------------------------ IAM role
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: s3access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                Resource: !Sub 'arn:aws:s3:::atoa-poc-manual-${AWS::AccountId}/assessments/*'
+      Tags:
+        - Key: project
+          Value: atoa-poc
+        - Key: variant
+          Value: manual
+        - Key: env
+          Value: dev
+        - Key: app
+          Value: migration-fortune
+
+  # ------------------------------------------------------------------ HTTP API
+  MigrationFortuneApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Tags:
+        project: atoa-poc
+        variant: manual
+        env: dev
+        app: migration-fortune
+
+  # ------------------------------------------------------------------ POST /assess
+  AssessFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: MigrationFortuneManual::MigrationFortuneManual.Functions.AssessFunction::HandleAsync
+      CodeUri: src/
+      MemorySize: 512
+      Timeout: 30
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        AssessApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref MigrationFortuneApi
+            Path: /assess
+            Method: post
+      Tags:
+        project: atoa-poc
+        variant: manual
+        env: dev
+        app: migration-fortune
+
+  # ------------------------------------------------------------------ GET /assessment/{id}
+  GetAssessmentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: MigrationFortuneManual::MigrationFortuneManual.Functions.GetAssessmentFunction::HandleAsync
+      CodeUri: src/
+      MemorySize: 256
+      Timeout: 10
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        GetAssessmentApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref MigrationFortuneApi
+            Path: /assessment/{id}
+            Method: get
+      Tags:
+        project: atoa-poc
+        variant: manual
+        env: dev
+        app: migration-fortune
+
+Outputs:
+  ApiUrl:
+    Description: Migration Fortune API endpoint URL
+    Value: !Sub 'https://${MigrationFortuneApi}.execute-api.${AWS::Region}.amazonaws.com/'

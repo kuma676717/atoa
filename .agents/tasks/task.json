@@ -1,0 +1,7 @@
+{
+  "task_id": "task-atoa-migration-fortune",
+  "task_description": "Build a Level 300 PoC for AWS Transform Azure-to-AWS: Cloud Migration Fortune API (クラウド移行診断おみくじAPI). Implements Azure Functions .NET 8 isolated + Blob Storage, manual-port Lambda .NET 8 + S3, Bicep infra, SAM template, benchmark scripts, cleanup scripts, and root docs.",
+  "status": "pending",
+  "feature_order": ["FEAT-001", "FEAT-002", "FEAT-003"],
+  "blocked_reason": null
+}

@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "label": "legacy-erp",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "legacy-erp",
+      "description": "Legacy ERP system built on Java and Oracle",
+      "techStack": ["Java", "Oracle"],
+      "yearsInProduction": 15
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 2,
+    "label": "monolith-api",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "monolith-api",
+      "description": "Ruby on Rails monolith",
+      "techStack": ["Ruby", "PostgreSQL"],
+      "yearsInProduction": 8
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 3,
+    "label": "cobol-batch",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "cobol-batch",
+      "description": "COBOL batch processing system",
+      "techStack": ["COBOL", "DB2"],
+      "yearsInProduction": 25
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 4,
+    "label": "dotnet-webapi",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "dotnet-webapi",
+      "description": ".NET Web API backend",
+      "techStack": [".NET", "SQL Server"],
+      "yearsInProduction": 6
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 5,
+    "label": "micro-service",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "micro-service",
+      "description": "Go microservice on Kubernetes",
+      "techStack": ["Go", "PostgreSQL", "Kubernetes"],
+      "yearsInProduction": 1
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 6,
+    "label": "serverless-func",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "serverless-func",
+      "description": "C# serverless function",
+      "techStack": ["C#", ".NET 8"],
+      "yearsInProduction": 2
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 7,
+    "label": "validation-empty-workload",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "",
+      "description": "test"
+    },
+    "expectedStatus": 400
+  },
+  {
+    "id": 8,
+    "label": "validation-missing-description",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "test"
+    },
+    "expectedStatus": 400
+  },
+  {
+    "id": 9,
+    "label": "validation-negative-years",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "test",
+      "description": "test",
+      "yearsInProduction": -1
+    },
+    "expectedStatus": 400
+  },
+  {
+    "id": 10,
+    "label": "edge-zero-years",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "edge-zero",
+      "description": "Zero years in production",
+      "yearsInProduction": 0
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 11,
+    "label": "large-tech-stack",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "large-stack",
+      "description": "App with many tech stack items",
+      "techStack": ["Java", "Python", "Ruby", "Go", "Node.js", "PostgreSQL", "MySQL", "Redis", "Kafka", "Kubernetes"],
+      "yearsInProduction": 5
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 12,
+    "label": "long-workload-name",
+    "method": "POST",
+    "endpoint": "/api/assess",
+    "body": {
+      "workloadName": "ThisIsAVeryLongWorkloadNameThatExceedsNormalLengthToTestEdgeCasesInTheAPIAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "description": "100-char name test"
+    },
+    "expectedStatus": 200
+  },
+  {
+    "id": 13,
+    "label": "missing-assessment",
+    "method": "GET",
+    "endpoint": "/api/assessment/00000000-0000-0000-0000-000000000000",
+    "expectedStatus": 404
+  }
+]

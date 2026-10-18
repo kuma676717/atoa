@@ -1,0 +1,7 @@
+{
+  "profile": "",
+  "region": "ap-northeast-1",
+  "configuration": "Release",
+  "framework": "net8.0",
+  "function-architecture": "arm64"
+}
