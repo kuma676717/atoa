@@ -1,0 +1,6 @@
+{
+  "verdict": "CHANGES_REQUESTED",
+  "findings": [
+    "aws-lambda-transform/ is not completely empty: contains empty subdirectories src/ and tests/. The constraint (context.json) says 'MUST REMAIN EMPTY'. These empty dirs carry no files and git will not track them, but they violate the explicit constraint. Remove with: rm -rf /Users/koji/kiro2/atoa/aws-lambda-transform/src /Users/koji/kiro2/atoa/aws-lambda-transform/tests"
+  ]
+}
