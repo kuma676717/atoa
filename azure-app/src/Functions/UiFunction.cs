@@ -104,6 +104,31 @@ public class UiFunction
             .source-text { text-align: right; font-size: 0.8em; color: #999; }
             .assessment-id { font-size: 0.75em; color: #999; text-align: center; margin-top: 12px; user-select: all; }
             .error-msg { color: #f44336; }
+            .tech-group { margin-bottom: 12px; }
+            .tech-group-label { font-size: 0.8em; color: #8B7355; margin-bottom: 6px; font-weight: bold; }
+            .tech-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+            .tech-chip input[type=checkbox] { display: none; }
+            .tech-chip label {
+              display: inline-block;
+              padding: 4px 10px;
+              border-radius: 20px;
+              border: 1px solid #c9b99a;
+              cursor: pointer;
+              font-size: 0.85em;
+              transition: all 0.15s;
+              user-select: none;
+            }
+            .tech-chip.ancient label { background: #f5ede0; border-color: #a07040; color: #5a3218; }
+            .tech-chip.ancient input:checked + label { background: #8B5020; color: #fff; border-color: #8B5020; }
+            .tech-chip.legacy label { background: #f5f0e8; border-color: #c9b99a; color: #5a3e2b; }
+            .tech-chip.legacy input:checked + label { background: #8B7355; color: #fff; border-color: #8B7355; }
+            .tech-chip.old label { background: #f0f0f5; border-color: #9999bb; color: #333366; }
+            .tech-chip.old input:checked + label { background: #5555aa; color: #fff; border-color: #5555aa; }
+            .tech-chip.modern label { background: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
+            .tech-chip.modern input:checked + label { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+            .vibe-hint { font-size: 0.8em; margin-top: 6px; color: #666; }
+            .vibe-hint .ng { color: #c62828; }
+            .vibe-hint .good { color: #2e7d32; }
           </style>
         </head>
         <body>
@@ -119,9 +144,63 @@ public class UiFunction
                   <label for="description">説明</label>
                   <textarea id="description" required placeholder="システムの説明" rows="3"></textarea>
                 </div>
+                <div class="vibe-hint">
+                  💀 凶ワード例：<span class="ng">「神」「闇」「触るな」「秘伝のタレ」</span><br>
+                  ✨ 吉ワード例：<span class="good">「Terraform」「CI/CD」「テスト済み」</span>
+                </div>
                 <div class="field">
-                  <label for="techStack">技術スタック（カンマ区切り）</label>
-                  <input type="text" id="techStack" placeholder="例: COBOL, Java, Oracle">
+                  <label>技術スタック</label>
+                  <div class="tech-group">
+                    <div class="tech-group-label">🏺 古代遺跡（選ぶと重たい結果になりやすい）</div>
+                    <div class="tech-chips">
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-COBOL" value="COBOL"><label for="t-COBOL">COBOL</label></span>
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-FORTRAN" value="FORTRAN"><label for="t-FORTRAN">FORTRAN</label></span>
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-RPG" value="RPG"><label for="t-RPG">RPG</label></span>
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-AS400" value="AS/400"><label for="t-AS400">AS/400</label></span>
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-CICS" value="CICS"><label for="t-CICS">CICS</label></span>
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-JCL" value="JCL"><label for="t-JCL">JCL</label></span>
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-DB2" value="DB2"><label for="t-DB2">DB2</label></span>
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-VSAM" value="VSAM"><label for="t-VSAM">VSAM</label></span>
+                      <span class="tech-chip ancient"><input type="checkbox" name="tech" id="t-PLI" value="PL/I"><label for="t-PLI">PL/I</label></span>
+                    </div>
+                  </div>
+                  <div class="tech-group">
+                    <div class="tech-group-label">📼 レガシー</div>
+                    <div class="tech-chips">
+                      <span class="tech-chip legacy"><input type="checkbox" name="tech" id="t-VB6" value="VB6"><label for="t-VB6">VB6</label></span>
+                      <span class="tech-chip legacy"><input type="checkbox" name="tech" id="t-PB" value="PowerBuilder"><label for="t-PB">PowerBuilder</label></span>
+                      <span class="tech-chip legacy"><input type="checkbox" name="tech" id="t-Delphi" value="Delphi"><label for="t-Delphi">Delphi</label></span>
+                      <span class="tech-chip legacy"><input type="checkbox" name="tech" id="t-CF" value="ColdFusion"><label for="t-CF">ColdFusion</label></span>
+                      <span class="tech-chip legacy"><input type="checkbox" name="tech" id="t-Flash" value="Flash"><label for="t-Flash">Flash</label></span>
+                      <span class="tech-chip legacy"><input type="checkbox" name="tech" id="t-CASP" value="Classic ASP"><label for="t-CASP">Classic ASP</label></span>
+                      <span class="tech-chip legacy"><input type="checkbox" name="tech" id="t-WF" value="WebForms"><label for="t-WF">WebForms</label></span>
+                      <span class="tech-chip legacy"><input type="checkbox" name="tech" id="t-Perl" value="Perl"><label for="t-Perl">Perl</label></span>
+                    </div>
+                  </div>
+                  <div class="tech-group">
+                    <div class="tech-group-label">🖥️ 旧世代</div>
+                    <div class="tech-chips">
+                      <span class="tech-chip old"><input type="checkbox" name="tech" id="t-DOTNETFW" value=".NET Framework"><label for="t-DOTNETFW">.NET Framework</label></span>
+                      <span class="tech-chip old"><input type="checkbox" name="tech" id="t-Java67" value="Java 6/7"><label for="t-Java67">Java 6/7</label></span>
+                      <span class="tech-chip old"><input type="checkbox" name="tech" id="t-PHP5" value="PHP 5"><label for="t-PHP5">PHP 5</label></span>
+                      <span class="tech-chip old"><input type="checkbox" name="tech" id="t-AngularJS" value="AngularJS"><label for="t-AngularJS">AngularJS</label></span>
+                      <span class="tech-chip old"><input type="checkbox" name="tech" id="t-WL" value="WebLogic"><label for="t-WL">WebLogic</label></span>
+                      <span class="tech-chip old"><input type="checkbox" name="tech" id="t-WS" value="WebSphere"><label for="t-WS">WebSphere</label></span>
+                    </div>
+                  </div>
+                  <div class="tech-group">
+                    <div class="tech-group-label">✨ モダン（選ぶと軽い結果になりやすい）</div>
+                    <div class="tech-chips">
+                      <span class="tech-chip modern"><input type="checkbox" name="tech" id="t-DN8" value=".NET 8"><label for="t-DN8">.NET 8</label></span>
+                      <span class="tech-chip modern"><input type="checkbox" name="tech" id="t-Java17" value="Java 17+"><label for="t-Java17">Java 17+</label></span>
+                      <span class="tech-chip modern"><input type="checkbox" name="tech" id="t-Node" value="Node.js"><label for="t-Node">Node.js</label></span>
+                      <span class="tech-chip modern"><input type="checkbox" name="tech" id="t-Py3" value="Python 3"><label for="t-Py3">Python 3</label></span>
+                      <span class="tech-chip modern"><input type="checkbox" name="tech" id="t-Go" value="Go"><label for="t-Go">Go</label></span>
+                      <span class="tech-chip modern"><input type="checkbox" name="tech" id="t-K8s" value="Kubernetes"><label for="t-K8s">Kubernetes</label></span>
+                      <span class="tech-chip modern"><input type="checkbox" name="tech" id="t-TF" value="Terraform"><label for="t-TF">Terraform</label></span>
+                      <span class="tech-chip modern"><input type="checkbox" name="tech" id="t-React" value="React"><label for="t-React">React</label></span>
+                    </div>
+                  </div>
                 </div>
                 <div class="field">
                   <label for="yearsInProduction">稼働年数</label>
@@ -144,13 +223,12 @@ public class UiFunction
 
                 var workloadName = document.getElementById('workloadName').value.trim();
                 var description = document.getElementById('description').value.trim();
-                var techStackRaw = document.getElementById('techStack').value.trim();
                 var yearsRaw = document.getElementById('yearsInProduction').value.trim();
 
                 var body = { workloadName: workloadName, description: description };
-                if (techStackRaw) {
-                  body.techStack = techStackRaw.split(',').map(function (s) { return s.trim(); });
-                }
+                var techStack = Array.from(document.querySelectorAll('input[name="tech"]:checked'))
+                    .map(function(cb) { return cb.value; });
+                if (techStack.length > 0) body.techStack = techStack;
                 if (yearsRaw) {
                   body.yearsInProduction = parseInt(yearsRaw, 10);
                 }
