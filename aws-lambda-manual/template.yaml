@@ -122,6 +122,28 @@ Resources:
         env: dev
         app: migration-fortune
 
+  # ------------------------------------------------------------------ GET / (UI)
+  UiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: MigrationFortuneManual::MigrationFortuneManual.Functions.UiFunction::HandleAsync
+      CodeUri: src/
+      MemorySize: 128
+      Timeout: 10
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Events:
+        UiApi:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref MigrationFortuneApi
+            Path: /
+            Method: get
+      Tags:
+        project: atoa-poc
+        variant: manual
+        env: dev
+        app: migration-fortune
+
 Outputs:
   ApiUrl:
     Description: Migration Fortune API endpoint URL
