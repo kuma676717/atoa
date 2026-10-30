@@ -24,7 +24,7 @@ public class FortuneEngine
     // 旧世代級（+5点/技術）
     private static readonly HashSet<string> TierOld = new(StringComparer.OrdinalIgnoreCase)
     {
-        ".NET Framework", "Java 6", "Java 7", "PHP 5", "Python 2",
+        ".NET Framework", "Java 6", "Java 7", "Java 6/7", "PHP 5", "Python 2",
         "AngularJS", "jQuery", "WebLogic", "WebSphere", "Struts", "EJB"
     };
 
